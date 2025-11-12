@@ -1,0 +1,168 @@
+/* ==============================
+    共通リセット & ベース
+============================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+html {
+    background-color: #f0f0f0;
+}
+
+body {
+    font-family: 'Sawarabi Mincho', serif;
+    margin: 20px;
+    color: #222;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* ==============================
+    ヘッダー
+============================== */
+.header {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.header-title {
+    font-size: 24px;
+    font-weight: bold;
+    border-left: 2px solid #00aaff;
+    padding-left: 2px;
+}
+
+/* ==============================
+    タブ
+============================== */
+.header-nav {
+    display: flex;
+    gap: 12px;
+}
+
+.tab {
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 6px 10px;
+    border-bottom: 2px solid transparent;
+    font-size: 16px;
+    transition: border-color 0.3s, font-weight 0.3s;
+}
+
+.tab.active {
+    border-color: #333;
+    font-weight: bold;
+}
+
+/* ==============================
+    検索フォーム
+============================== */
+.search-box {
+    display: flex;
+    gap: 8px;
+}
+
+.search-input {
+    flex: 1;
+    font-size: 14px;
+    padding: 6px 8px;
+}
+
+.search-button {
+    font-size: 14px;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+/* ==============================
+    コンテンツ共通
+============================== */
+.results-container {
+    padding: 16px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* ==============================
+    書籍カード
+============================== */
+.book-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.book-card {
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    height: 400px;
+}
+
+.book-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.book-author {
+    font-size: 14px;
+    color: #555;
+}
+
+.book-description {
+    font-size: 13px;
+    color: #333;
+}
+
+.book-image {
+    align-self: center;
+    width: 120px;
+    height: auto;
+    margin-top: auto;
+}
+
+.book-favorite {
+    align-self: flex-start;
+    font-size: 14px;
+    padding: 4px 10px;
+    border: 1px solid #000;
+    background: #fafafa;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.book-favorite:hover {
+    background: #f0f0f0;
+}
