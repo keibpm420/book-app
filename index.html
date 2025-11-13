@@ -3,12 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Google Books Search</title>
-
-        <!-- Google Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Sawarabi+Mincho&display=swap" rel="stylesheet" />
+        <title>書籍管理アプリ</title>
 
         <!-- CSS -->
         <link rel="stylesheet" href="./css/style.css" />
@@ -28,17 +23,23 @@
             </div>
 
             <div class="search-box">
-                <input type="text" class="search-input js-search-input" placeholder="本のタイトルや著者" value="負けヒロイン" />
+                <input
+                    type="text"
+                    class="search-input js-search-input"
+                    placeholder="本のタイトルや著者"
+                    value="この素晴らしい世界に祝福を！"
+                    autofocus
+                />
                 <button type="button" class="search-button js-search-button">検索</button>
             </div>
         </header>
 
-        <!-- 🔍 検索結果エリア -->
+        <!-- 検索結果エリア -->
         <section id="searchResults" class="results-container" data-tab="search">
             <div class="book-list js-search-list"></div>
         </section>
 
-        <!-- ⭐ お気に入りエリア -->
+        <!-- お気に入りエリア -->
         <section id="favoritesResults" class="results-container hidden" data-tab="favorites">
             <div class="book-list js-favorites-list"></div>
         </section>

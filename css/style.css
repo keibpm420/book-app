@@ -1,6 +1,4 @@
-/* ==============================
-    共通リセット & ベース
-============================== */
+/* 共通リセット & ベース */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -12,12 +10,17 @@
     box-sizing: inherit;
 }
 
+:root {
+    --primary-color: #8a00ea;
+}
+
 html {
-    background-color: #f0f0f0;
+    background-color: #ffffff;
 }
 
 body {
-    font-family: 'Sawarabi Mincho', serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo,
+        sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     margin: 20px;
     color: #222;
 }
@@ -33,13 +36,16 @@ img {
     height: auto;
 }
 
-/* ==============================
-    ヘッダー
-============================== */
+.container {
+    /* width: min(1200px, 100%);
+    margin-inline: auto; */
+}
+
+/* ヘッダー */
 .header {
     border-bottom: 1px solid #ccc;
     padding-bottom: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 
 .header-inner {
@@ -52,13 +58,9 @@ img {
 .header-title {
     font-size: 24px;
     font-weight: bold;
-    border-left: 2px solid #00aaff;
-    padding-left: 2px;
 }
 
-/* ==============================
-    タブ
-============================== */
+/* タブ */
 .header-nav {
     display: flex;
     gap: 12px;
@@ -79,16 +81,15 @@ img {
     font-weight: bold;
 }
 
-/* ==============================
-    検索フォーム
-============================== */
+/* 検索フォーム */
 .search-box {
     display: flex;
+    justify-content: center;
     gap: 8px;
 }
 
 .search-input {
-    flex: 1;
+    flex-grow: 0.5;
     font-size: 14px;
     padding: 6px 8px;
 }
@@ -99,45 +100,55 @@ img {
     cursor: pointer;
 }
 
-/* ==============================
-    コンテンツ共通
-============================== */
+/* コンテンツ共通 */
 .results-container {
-    padding: 16px;
 }
 
 .hidden {
     display: none;
 }
 
-/* ==============================
-    書籍カード
-============================== */
+/* 書籍カード */
 .book-list {
+    margin-inline: auto;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 332px);
+    justify-content: center;
     gap: 20px;
 }
 
 .book-card {
+    color: #251e4a;
     border: 1px solid #ccc;
     background: #fff;
     border-radius: 8px;
-    padding: 12px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    height: 400px;
+    box-shadow: 0px 4px 0px 0px rgba(0, 0, 0, 0.12);
+    border-color: rgba(0, 0, 0, rgba(0, 0, 0, 0.12));
+    transition: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1), border-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    width: 332px;
+}
+
+.book-card:hover {
+    box-shadow: none;
+    border-color: rgb(138, 0, 234);
 }
 
 .book-title {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
+    display: -webkit-box; /* flexのような表示にする */
+    -webkit-box-orient: vertical; /* 縦方向にテキストを並べる */
+    -webkit-line-clamp: 1; /* 表示する行数を指定（ここでは1行） */
+    overflow: hidden; /* はみ出した部分を隠す */
+    text-overflow: ellipsis; /* 省略記号（…）を付ける */
 }
 
 .book-author {
-    font-size: 14px;
+    font-size: 16px;
     color: #555;
 }
 
@@ -153,7 +164,7 @@ img {
     margin-top: auto;
 }
 
-.book-favorite {
+.book-button {
     align-self: flex-start;
     font-size: 14px;
     padding: 4px 10px;
@@ -163,6 +174,12 @@ img {
     transition: background 0.3s;
 }
 
-.book-favorite:hover {
+.book-button:hover {
     background: #f0f0f0;
+}
+
+.book-delete {
+}
+
+.book-favorite {
 }

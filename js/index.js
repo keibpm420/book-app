@@ -1,6 +1,4 @@
-// ------------------------------
-// 🔍 検索ボタン押下イベント
-// ------------------------------
+// 検索ボタン押下イベント
 document.querySelector('.js-search-button').addEventListener('click', async () => {
     const query = document.querySelector('.js-search-input').value.trim();
     if (!query) return;
@@ -28,9 +26,7 @@ document.querySelector('.js-search-button').addEventListener('click', async () =
     }
 });
 
-// ------------------------------
-// 📖 書籍カード生成関数
-// ------------------------------
+// 書籍カード生成関数
 function createBookCard(info, isFavorite = false) {
     const card = document.createElement('div');
     card.className = 'book-card';
@@ -38,19 +34,29 @@ function createBookCard(info, isFavorite = false) {
     // 画像URLを選択
     const imgSrc = isFavorite
         ? info.thumbnail || '' // お気に入りは dataset に保存してある URL を使う
-        : info.imageLinks?.extraLarge || info.imageLinks?.large || info.imageLinks?.medium || info.imageLinks?.thumbnail || info.imageLinks?.smallThumbnail || '';
+        : info.imageLinks?.extraLarge ||
+          info.imageLinks?.large ||
+          info.imageLinks?.medium ||
+          info.imageLinks?.thumbnail ||
+          info.imageLinks?.smallThumbnail ||
+          '';
 
     const description = info.description || '説明なし';
     const shortDesc = description.length > 80 ? description.slice(0, 80) + '･･･' : description;
 
+    // <p class="book-description">${shortDesc}</p>
+
     card.innerHTML = `
         <h2 class="book-title">${info.title || 'タイトル不明'}</h2>
         <p class="book-author">著者：${info.authors?.join(', ') || '不明'}</p>
-        <p class="book-description">${shortDesc}</p>
         <div class="book-image">
             <img src="${imgSrc}" alt="${info.title || '書籍画像'}">
         </div>
-        ${!isFavorite ? '<button type="button" class="book-favorite">お気に入りに追加</button>' : ''}
+        ${
+            !isFavorite
+                ? '<button type="button" class="book-button book-favorite">お気に入りに追加</button><button type="button" class="book-button book-detail">詳細を見る</button>'
+                : '<button type="button" class="book-button book-delete">削除する</button>'
+        }
     `;
 
     if (!isFavorite) {
@@ -65,14 +71,16 @@ function createBookCard(info, isFavorite = false) {
             const bookData = JSON.parse(card.dataset.book);
             addToFavorites(bookData);
         });
+    } else {
+        card.querySelector('.book-delete').addEventListener('click', () => {
+            deleteFavorites(info.title);
+        });
     }
 
     return card;
 }
 
-// ------------------------------
-// 💾 お気に入り追加処理
-// ------------------------------
+// お気に入り追加処理
 function addToFavorites(book) {
     const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     if (favorites.some((f) => f.title === book.title)) {
@@ -84,9 +92,16 @@ function addToFavorites(book) {
     alert('お気に入りに追加しました');
 }
 
-// ------------------------------
-// 🔁 タブ切り替え処理
-// ------------------------------
+// お気に入り削除処理
+function deleteFavorites(title) {
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    favorites = favorites.filter((f) => f.title !== title);
+
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+    renderFavorites();
+}
+
+// タブ切り替え処理
 document.querySelectorAll('.tab').forEach((tab) => {
     tab.addEventListener('click', () => {
         const selected = tab.dataset.tab;
@@ -102,9 +117,7 @@ document.querySelectorAll('.tab').forEach((tab) => {
     });
 });
 
-// ------------------------------
-// ⭐ お気に入り一覧表示
-// ------------------------------
+// お気に入り一覧表示
 function renderFavorites() {
     const favoritesList = document.querySelector('.js-favorites-list');
     favoritesList.innerHTML = '';
