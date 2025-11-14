@@ -134,7 +134,7 @@ img {
 
 .book-card:hover {
     box-shadow: none;
-    border-color: rgb(138, 0, 234);
+    border-color: var(--primary-color);
 }
 
 .book-title {
@@ -162,20 +162,23 @@ img {
     width: 120px;
     height: auto;
     margin-top: auto;
+    border: 1px solid var(--primary-color);
+    border-radius: 3px;
+    overflow: hidden;
 }
 
 .book-button {
     align-self: flex-start;
     font-size: 14px;
     padding: 4px 10px;
-    border: 1px solid #000;
-    background: #fafafa;
     cursor: pointer;
-    transition: background 0.3s;
+    color: #ffffff;
+    background-color: var(--primary-color);
+    border-radius: 16px;
+    border: none;
 }
 
 .book-button:hover {
-    background: #f0f0f0;
 }
 
 .book-delete {
