@@ -34,29 +34,25 @@ function createBookCard(info, isFavorite = false) {
     // 画像URLを選択
     const imgSrc = isFavorite
         ? info.thumbnail || '' // お気に入りは dataset に保存してある URL を使う
-        : info.imageLinks?.extraLarge ||
-          info.imageLinks?.large ||
-          info.imageLinks?.medium ||
-          info.imageLinks?.thumbnail ||
-          info.imageLinks?.smallThumbnail ||
-          '';
+        : info.imageLinks?.thumbnail || info.imageLinks?.smallThumbnail || '';
 
     const description = info.description || '説明なし';
-    const shortDesc = description.length > 80 ? description.slice(0, 80) + '･･･' : description;
 
+    // const shortDesc = description.length > 80 ? description.slice(0, 80) + '･･･' : description;
     // <p class="book-description">${shortDesc}</p>
 
     card.innerHTML = `
         <h2 class="book-title">${info.title || 'タイトル不明'}</h2>
+
         <p class="book-author">著者：${info.authors?.join(', ') || '不明'}</p>
+
         <div class="book-image">
             <img src="${imgSrc}" alt="${info.title || '書籍画像'}">
         </div>
-        ${
-            !isFavorite
-                ? '<button type="button" class="book-button book-favorite">お気に入りに追加</button><button type="button" class="book-button book-detail">詳細を見る</button>'
-                : '<button type="button" class="book-button book-delete">削除する</button>'
-        }
+
+        ${!isFavorite ? `<like-button></like-button>` : '<button type="button" class="book-button book-delete">削除する</button>'}
+
+        <button type="button" class="book-button book-detail">詳細を見る</button>
     `;
 
     if (!isFavorite) {
@@ -67,7 +63,7 @@ function createBookCard(info, isFavorite = false) {
             thumbnail: imgSrc,
         });
 
-        card.querySelector('.book-favorite').addEventListener('click', () => {
+        card.querySelector('like-button').addEventListener('favorite-click', () => {
             const bookData = JSON.parse(card.dataset.book);
             addToFavorites(bookData);
         });
@@ -84,12 +80,12 @@ function createBookCard(info, isFavorite = false) {
 function addToFavorites(book) {
     const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     if (favorites.some((f) => f.title === book.title)) {
-        alert('すでにお気に入りに追加されています');
+        console.log('すでにお気に入りに追加されています');
         return;
     }
     favorites.push(book);
     localStorage.setItem('favorites', JSON.stringify(favorites));
-    alert('お気に入りに追加しました');
+    console.log('お気に入りに追加しました');
 }
 
 // お気に入り削除処理
